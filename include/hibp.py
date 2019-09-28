@@ -128,7 +128,3 @@ def check_password(password):
             foundPwn = PwnedPassword(foundPwnDict)
             return foundPwn
     return None # Password is not pwned
-
-pwned = check_password("password")
-print(pwned.get_hash())
-print(pwned.get_pwncount())

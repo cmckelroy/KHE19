@@ -22,21 +22,21 @@ class Password:
     """
     def __init__(self, password):
         self.passvalue = password
-        self.__pwned = check_password(password)
-        self.__passstrength = PasswordStrength(password)
+        self.pwned = check_password(password)
+        self.passstrength = PasswordStrength(password)
         
     def is_pwned(self):
-        return __pwned is not None
+        return self.pwned is not None
     
     def pwned_count(self):
-        if self.__pwned is not None:
-            return self.__pwned.get_pwncount()
+        if self.pwned is not None:
+            return self.pwned.get_pwncount()
     
     def score(self):
-        return self.__passstrength.score
+        return self.passstrength.score
     
     def suggestions(self):
-        return self.__passstrength.suggestions
+        return self.passstrength.suggestions
     
     def warnings(self):
-        return self.__passstrength.warnings
+        return self.passstrength.warnings
