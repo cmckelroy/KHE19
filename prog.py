@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QMainWindow, QApplication
+from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox
 from PyQt5.QtGui import QIcon
 from include import password, account, data
 from collections import Counter
@@ -106,10 +106,18 @@ class MyForm(QMainWindow):
             self.ui.outputBox.setText(single_pass(pswd))
         if self.procmode == 2:
             acct = str(self.ui.mainInputBox.text())
-            self.ui.outputBox.setText(single_account(acct))
+            try:
+                self.ui.outputBox.setText(single_account(acct))
+            except KeyError:
+                QMessageBox.about(self, "Missing API Key", "Account checking is not available, as no API key is installed on the system")
         if self.procmode == 3:
             file = str(self.ui.mainInputBox.text())
-            self.ui.outputBox.setText(file_check(file))
+            try:
+                self.ui.outputBox.setText(file_check(file))
+            except KeyError:
+                QMessageBox.about(self, "Missing API Key", "Account checking is not available, as no API key is installed on the system")
+            except data.FileLoadError:
+                QMessageBox.about(self, "Unknown File", "That file either doesn't exist, or it cannot be accessed")
   
 
 if __name__=="__main__":

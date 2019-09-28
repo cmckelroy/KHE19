@@ -84,6 +84,7 @@ class APIException(Exception):
     
 def check_account(username):
     apikey = environ["HIBP_API_KEY"] # I Really didn't want to store this in code, so maybe I'd package this with the installer?
+        
     apiurl_base = "https://haveibeenpwned.com/api/v3/breachedaccount/"
     request_headers = {
         'hibp-api-key': apikey,
