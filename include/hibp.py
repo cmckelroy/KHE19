@@ -32,31 +32,31 @@ class AccountBreach:
     
     """
     def __init__(self, data):
-        self._title = data['Title']
-        self._domain = data['Domain']
-        self._breach_date = data ['BreachDate']
-        self._pwncount = data ['PwnCount']
-        self._description = data ['Description']
-        self._verified = bool(data['IsVerified'])
+        self.__title = data['Title']
+        self.__domain = data['Domain']
+        self.__breach_date = data ['BreachDate']
+        self.__pwncount = data ['PwnCount']
+        self.__description = data ['Description']
+        self.__verified = bool(data['IsVerified'])
         
         
     def get_title(self):
-        return self._title
+        return self.__title
     
     def get_domain(self):
-        return self._domain
+        return self.__domain
     
     def get_breach_date(self):
-        return self._breach_date
+        return self.__breach_date
     
     def get_pwncount(self):
-        return self._pwncount
+        return self.__pwncount
 
     def get_description(self):
-        return self._description
+        return self.__description
     
     def get_verified(self):
-        return self._verified
+        return self.__verified
     
 class PwnedPassword:
     """Represents a Pwned Password returned from HaveIBeenPwned
@@ -70,14 +70,14 @@ class PwnedPassword:
     """
     
     def __init__(self, data):
-        self._hash = data['hash']
-        self._pwncount = data['pwncount']
+        self.__hash = data['hash']
+        self.__pwncount = data['pwncount']
         
     def get_hash(self):
-        return self._hash
+        return self.__hash
         
     def get_pwncount(self):
-        return self._pwncount
+        return self.__pwncount
 
 class APIException(Exception):
     pass
