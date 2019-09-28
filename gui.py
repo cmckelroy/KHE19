@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'test.ui'
+# Form implementation generated from reading ui file '.\test.ui'
 #
 # Created by: PyQt5 UI code generator 5.13.1
 #
@@ -31,26 +31,29 @@ class Ui_MainWindow(object):
         self.mainInputLabel.setFont(font)
         self.mainInputLabel.setObjectName("mainInputLabel")
         self.mode_group = QtWidgets.QGroupBox(self.centralwidget)
-        self.mode_group.setGeometry(QtCore.QRect(30, 260, 341, 261))
+        self.mode_group.setGeometry(QtCore.QRect(40, 260, 341, 291))
         self.mode_group.setObjectName("mode_group")
         self.mode_radio_pass = QtWidgets.QRadioButton(self.mode_group)
         self.mode_radio_pass.setGeometry(QtCore.QRect(20, 40, 181, 20))
         self.mode_radio_pass.setObjectName("mode_radio_pass")
         self.mode_radio_acct = QtWidgets.QRadioButton(self.mode_group)
-        self.mode_radio_acct.setGeometry(QtCore.QRect(20, 130, 181, 20))
+        self.mode_radio_acct.setGeometry(QtCore.QRect(20, 110, 181, 20))
         self.mode_radio_acct.setObjectName("mode_radio_acct")
         self.mode_radio_file = QtWidgets.QRadioButton(self.mode_group)
-        self.mode_radio_file.setGeometry(QtCore.QRect(20, 220, 181, 20))
+        self.mode_radio_file.setGeometry(QtCore.QRect(20, 250, 181, 20))
         self.mode_radio_file.setObjectName("mode_radio_file")
+        self.mode_chrome_check = QtWidgets.QRadioButton(self.mode_group)
+        self.mode_chrome_check.setGeometry(QtCore.QRect(20, 180, 181, 20))
+        self.mode_chrome_check.setObjectName("mode_chrome_check")
         self.mainRun = QtWidgets.QPushButton(self.centralwidget)
-        self.mainRun.setGeometry(QtCore.QRect(450, 490, 93, 28))
+        self.mainRun.setGeometry(QtCore.QRect(450, 520, 93, 28))
         self.mainRun.setObjectName("mainRun")
         self.Quit = QtWidgets.QPushButton(self.centralwidget)
-        self.Quit.setGeometry(QtCore.QRect(610, 490, 93, 28))
+        self.Quit.setGeometry(QtCore.QRect(610, 520, 93, 28))
         self.Quit.setObjectName("Quit")
         self.outputBox = QtWidgets.QTextEdit(self.centralwidget)
         self.outputBox.setEnabled(True)
-        self.outputBox.setGeometry(QtCore.QRect(390, 290, 371, 181))
+        self.outputBox.setGeometry(QtCore.QRect(390, 290, 371, 211))
         self.outputBox.setFocusPolicy(QtCore.Qt.WheelFocus)
         self.outputBox.setAcceptDrops(False)
         self.outputBox.setReadOnly(True)
@@ -87,6 +90,7 @@ class Ui_MainWindow(object):
         self.mode_radio_pass.setText(_translate("MainWindow", "Single Password Check"))
         self.mode_radio_acct.setText(_translate("MainWindow", "Single Account Check"))
         self.mode_radio_file.setText(_translate("MainWindow", "File Check"))
+        self.mode_chrome_check.setText(_translate("MainWindow", "Chrome Check"))
         self.mainRun.setText(_translate("MainWindow", "Run"))
         self.Quit.setText(_translate("MainWindow", "Quit"))
         self.outputboxLabel.setText(_translate("MainWindow", "Output:"))

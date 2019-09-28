@@ -1,15 +1,17 @@
 import sys
 from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox
 from PyQt5.QtGui import QIcon
-from include import password, account, data
+from include import password, account, data, browserpass
 from collections import Counter
 from gui import *
+from sqlite3 import OperationalError
 
 """Modes
 0 - Not defined yet
 1 - Password
 2 - Account
 3 - File
+4 - browser
 """
 
 def single_pass(pswd):
@@ -74,6 +76,26 @@ def file_check(fp):
         outputstr += "\n\n"
     return outputstr
 
+def chrome_check(acclist, passlist):
+    outputstr = ""
+    for account in acclist:
+        outputstr += f"Account Username: {account}\n"
+        outputstr += "-------------------------------------------------------\n\n"
+        outputstr += single_account(account)
+    pwddupes = Counter(passlist)
+    passlistDeDupe = []
+    for item in passlist:
+        if item not in passlistDeDupe:
+            passlistDeDupe.append(item)
+    for pwdCheck in passlistDeDupe:
+        outputstr += f"Password: {pwdCheck}\n"
+        outputstr += "-------------------------------------------------------\n\n"
+        if pwddupes[pwdCheck] > 1:
+            outputstr += "You appear to be using this password {pwddupes[pwdCheck]} times!\n"
+        outputstr += single_pass(pwdCheck)
+        outputstr += "\n\n"
+    return outputstr
+
 class MyForm(QMainWindow):
     def __init__(self):
         self.procmode = 0
@@ -86,6 +108,7 @@ class MyForm(QMainWindow):
         self.ui.mode_radio_pass.toggled.connect(self.displaymode)
         self.ui.mode_radio_acct.toggled.connect(self.displaymode)
         self.ui.mode_radio_file.toggled.connect(self.displaymode)
+        self.ui.mode_chrome_check.toggled.connect(self.displaymode)
         self.ui.Quit.clicked.connect(self.close)
         self.show()
 
@@ -99,18 +122,28 @@ class MyForm(QMainWindow):
         if self.ui.mode_radio_file.isChecked():
             self.procmode = 3
             self.ui.mainInputLabel.setText("Enter file path:")
+        if self.ui.mode_chrome_check.isChecked():
+            self.procmode = 4
+            self.ui.mainInputBox.setText("Not used for this mode")
+            self.ui.mainInputBox.setReadOnly(True)
    		
     def dispmessage(self):
         if self.procmode == 1:
+            self.ui.mainRun.setEnabled(False)
             pswd = str(self.ui.mainInputBox.text())
             self.ui.outputBox.setText(single_pass(pswd))
+            self.ui.mainRun.setEnabled(True)
         if self.procmode == 2:
+            self.ui.mainRun.setEnabled(False)
             acct = str(self.ui.mainInputBox.text())
             try:
                 self.ui.outputBox.setText(single_account(acct))
             except KeyError:
                 QMessageBox.about(self, "Missing API Key", "Account checking is not available, as no API key is installed on the system")
+            finally:
+                self.ui.mainRun.setEnabled(True)
         if self.procmode == 3:
+            self.ui.mainRun.setEnabled(False)
             file = str(self.ui.mainInputBox.text())
             try:
                 self.ui.outputBox.setText(file_check(file))
@@ -118,6 +151,21 @@ class MyForm(QMainWindow):
                 QMessageBox.about(self, "Missing API Key", "Account checking is not available, as no API key is installed on the system")
             except data.FileLoadError:
                 QMessageBox.about(self, "Unknown File", "That file either doesn't exist, or it cannot be accessed")
+            finally:
+                self.ui.mainRun.setEnabled(True)
+        if self.procmode == 4:
+            self.ui.mainRun.setEnabled(False)
+            try:
+                QMessageBox.about(self, "Close Chrome", "Please close Chrome before running this.")
+                (acclist, passlist) = browserpass.retrieve_chrome()
+                self.ui.outputBox.setText(chrome_check(acclist, passlist))
+            except KeyError:
+                QMessageBox.about(self, "Missing API Key", "Account checking is not available, as no API key is installed on the system")
+            except OperationalError:
+                QMessageBox.about(self, "Database locked", "Cannot read the database. Is Chrome open?")
+            finally:
+                self.ui.mainRun.setEnabled(True)
+        
   
 
 if __name__=="__main__":
