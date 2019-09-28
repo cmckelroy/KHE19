@@ -13,8 +13,6 @@ class PasswordStrength:
     
     Attributes
     ------------
-    __passvalue: :class:`str`
-        The actual value of the password
     score: :class:`int`
         A score from 0-4 (0 is lowest) of the password strength
     warnings :class:`str`
@@ -23,8 +21,7 @@ class PasswordStrength:
         A list of suggestions for the password
     """
     def __init__(self, password):
-        self.__passvalue = password
-        self.__strengthResult = zxcvbn(self.__passvalue)
+        self.__strengthResult = zxcvbn(password)
         self.score = int(self.__strengthResult['score'])
         self.warnings = self.__strengthResult['feedback']['warning']
         self.suggestions = self.__strengthResult['feedback']['suggestions']
