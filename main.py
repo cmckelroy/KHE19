@@ -9,7 +9,7 @@ from colorama import Fore, Back, Style
 
 from include import password, account, data
 from collections import Counter
-
+k
 
 def single_pass(pswd):
     passwd = password.Password(pswd)
