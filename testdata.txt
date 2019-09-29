@@ -1,4 +1,0 @@
-example@domain.com:password
-example@domain.com:P@ssword
-example:password
-exampleman@domain.org:ThisIsACoolPassword
