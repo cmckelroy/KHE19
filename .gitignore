@@ -1,3 +1,12 @@
 
 *.pyc
 .vscode/settings.json
+dist/assets/icon.ico
+dist/assets/icon.png
+dist/assets/icon_small.png
+dist/assets/logo.png
+dist/dadpass.exe
+dist/dadpass_cmd.exe
+dadpass_cmd.spec
+dadpass.spec
+setup.py
